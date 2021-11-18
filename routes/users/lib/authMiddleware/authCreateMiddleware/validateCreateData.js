@@ -10,13 +10,13 @@ function validateCreateData(req, res, next) {
 
   const { firstName, lastName, username, email, password } = req.body;
 
-  if (!isAlpha(firstName)) {
-    errObj.firstName = "First Name cannot have special characters or numbers.";
+  if (!isAlpha(firstName, "en-US", { "ignore": "-'" })) {
+    errObj.firstName = "First Name can only include letters A-Z, hyphen or apostrophe";
   }
 
 
-  if (!isAlpha(lastName)) {
-    errObj.lastName = "Last Name cannot have special characters or numbers.";
+  if (!isAlpha(lastName, "en-US", { "ignore": "-'" })) {
+    errObj.lastName = "Last Name can only include letters A-Z, hyphen or apostrophe";
   }
 
 

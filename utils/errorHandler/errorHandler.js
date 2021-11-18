@@ -1,9 +1,15 @@
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 function parsedErrorMessage(err) {
   let output;
   try {
     let objectKeys = Object.keys(err.keyPattern);
     let objectValue = Object.values(err.keyValue);
-    output = `${objectKeys[0]} ${objectValue[0]} already exists`
+
+    output = `${capitalizeFirstLetter(objectKeys[0])} ${objectValue[0]} already exists`
   } catch (e) {
     output = "Something went wrong, please contact support!"
   }

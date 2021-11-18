@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
+const errorHandler = require('../../../utils/errorHandler/errorHandler')
 
 async function createUser(req, res) {
   const { firstName, lastName, username, email, password } = req.body;
@@ -16,8 +17,10 @@ async function createUser(req, res) {
     });
     let savedUser = await createdUser.save()
     res.json({ message: "success", payload: savedUser })
-  } catch (error) {
-    res.status(500).json({ message: "error", error: error.message })
+  } catch (e) {
+    res.status(500).json(errorHandler(e));
+
+    // res.status(500).json({ message: "error", error: e.message })
   }
 };
 
@@ -48,6 +51,7 @@ async function login(req, res) {
         const jwtToken = jwt.sign({
           email: foundUser.email,
           username: foundUser.username,
+          name: foundUser.firstName,
         }, process.env.JWT_SECRET, { expiresIn: '24h' });
         res.json({ message: 'success', payload: jwtToken })
       }
