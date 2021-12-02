@@ -16,6 +16,7 @@ mongoose
     console.log(e);
   });
 
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users/usersRouter');
 var moviesRouter = require('./routes/movies/moviesRouter');
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/movies', moviesRouter);
 
